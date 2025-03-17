@@ -1,0 +1,17 @@
+<div style="display: flex; gap: 20px;@media screen and( min-width: 992px) {
+    
+}">
+    <app-card style="width: 30%;" [data]="{ 
+        title: 'Mon titre', 
+        imageUrl: 'https://parcsaintecroix.com/wp-content/uploads/2024/02/MG_3383-scaled.jpg', 
+        description: 'autre desc' }"
+    ></app-card>
+    @for(item of data; track $index) {
+        <app-card style="width: 30%;" [data]="item"></app-card>
+    }
+</div>
+<hr>
+<div>
+    <app-chrono></app-chrono>
+</div>
+
