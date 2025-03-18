@@ -8,6 +8,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura'
 import { MessageService } from 'primeng/api';
 import { loaderInterceptor } from './interceptors/loader.interceptor';
+import { tokenInterceptor } from './interceptors/token.interceptor';
 
 // @Injectable({ providedIn: 'root' })
 // export class Ressource2 {
@@ -24,7 +25,8 @@ export const appConfig: ApplicationConfig = {
     { provide: 'ressource1', useValue: 42 },
     provideHttpClient(withInterceptors([
       // on enregistre tous les interceptors (middleware) ici
-      loaderInterceptor
+      loaderInterceptor,
+      tokenInterceptor,
     ])),
     provideAnimations(),
     providePrimeNG({
