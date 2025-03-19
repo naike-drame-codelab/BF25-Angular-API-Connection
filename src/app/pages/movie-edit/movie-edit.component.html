@@ -1,0 +1,61 @@
+<form [formGroup]="form" (submit)="submit()">
+  <label for="title">Titre</label>
+  <input type="text" formControlName="title" />
+  {{ form.controls["title"].errors | json }}
+
+  <br />
+
+  <label for="duration">Durée</label>
+  <input type="number" formControlName="duration" />
+  {{ form.controls["duration"].errors | json }}
+
+  <br />
+
+  <ng-container [formGroup]="form.controls['director']">
+    <label for="lastName">Nom</label>
+    <input type="text" formControlName="lastName" />
+    {{ form.controls["director"].controls["lastName"].errors | json }}
+    
+    <br />
+
+    <label for="firstName">Prénom</label>
+    <input type="text" formControlName="firstName" />
+    {{ form.controls["director"].controls["firstName"].errors | json }}
+  </ng-container>
+
+  <br />
+
+  <button (click)="addCategory()">Ajouter une catégorie</button>
+  <div formArrayName="categories">
+    @for(control of form.controls['categories'].controls; track control) {
+        <div>
+            <input type="text" [formControlName]="$index" />
+            <button (click)="removeCategory($index)">✖</button>
+        </div>
+    }
+    <p>{{form.controls['categories'].errors | json}}</p>
+  </div>
+  
+  <br />
+
+  <button (click)="addActor()">Ajouter un acteur</button>
+  <div formArrayName="actors">
+    @for(control of form.controls['actors'].controls; track control) {
+        <div [formGroupName]="$index">
+            <input type="text" formControlName="lastName" />
+            <input type="text" formControlName="firstName" />
+            <button (click)="removeActor($index)">✖</button>
+        </div>
+    }
+    <p>{{form.controls['categories'].errors | json}}</p>
+  </div>
+
+  <br />
+
+    <button type="submit">Enregistrer</button>
+
+  <br /><br /><br />
+
+  <h4>Valeurs du formulaire</h4>
+  {{ form.value | json }}
+</form>

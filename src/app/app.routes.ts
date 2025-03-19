@@ -6,6 +6,7 @@ import { ShoppingListComponent } from './pages/shopping-list/shopping-list.compo
 import { ProductComponent } from './pages/product/product.component';
 import { authenticatedGuard } from './guards/authenticated.guard';
 import { LoginComponent } from './pages/login/login.component';
+import { MovieEditComponent } from './pages/movie-edit/movie-edit.component';
 
 export const routes: NavRoutes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', show: false },
@@ -36,4 +37,10 @@ export const routes: NavRoutes = [
     component: LoginComponent,
     show: true,
   },
+  {
+    path: 'movie-edit',
+    title: 'Ajouter un film',
+    component: MovieEditComponent,
+    show: true,
+  }
 ];
