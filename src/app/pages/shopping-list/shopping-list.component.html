@@ -1,9 +1,12 @@
+@if(sessionService.session().role === 'Admin') {
 <div>
     <input type="text" [(ngModel)]="articleName">
     <input type="checkbox" [(ngModel)]="articleIsImportant">
     <button (click)="add()">Ajouter</button>
 </div>
-
+} @else {
+    <p>Vous n'avez pas le droit d'ajouter de nouveaux produits.</p>
+}
 <ul>
     @for (item of listCourseService.list(); track $index) {
         <ng-container [ngTemplateOutlet]="myTemplate"
@@ -29,7 +32,9 @@
                 <span>⚠️</span>
             }
         </p>
-        <button (click)="dialog.isVisible = true">🗑️</button>
+        @if(sessionService.session().role === 'Admin') {
+            <button (click)="dialog.isVisible = true">🗑️</button>
+        }
     </li>
 
     <app-confirm-box 

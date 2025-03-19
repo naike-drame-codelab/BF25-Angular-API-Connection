@@ -6,6 +6,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   imports: [Button, InputText, FloatLabel, ReactiveFormsModule],
@@ -17,6 +18,7 @@ export class LoginComponent {
   httpClient = inject(HttpClient);
   messageService = inject(MessageService);
   router = inject(Router);
+  sessionService = inject(SessionService);
 
   fg = this.formBuilder.group({
     username: [null, Validators.required],
@@ -31,7 +33,8 @@ export class LoginComponent {
       {
         next: ({token}) => {
           // sauver le token qq part
-          localStorage.setItem('TOKEN', token);
+          // localStorage.setItem('TOKEN', token);
+          this.sessionService.startSession(token);
           // rediriger vers une autre page
           this.router.navigate(['/shop-list'])
         },
