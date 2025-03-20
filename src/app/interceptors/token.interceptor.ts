@@ -16,7 +16,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // si mon token a expiré
-  if (session.exp < new Date()) {
+  if (session.token.exp < new Date()) {
     // return httpClient
     //   .get<{ token: string }>('http://localhost:5298/api/refreshToken', {
     //     params: {
@@ -33,12 +33,12 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       // pipe() : définition d'une suite d'opérations supplémentaires
     ).pipe(
       // tap() : effet de bord / side effect : faire une opération supplémentaire avant de passer à la suite
-      tap(({ newToken }) => sessionService.startSession(newToken)), 
+      tap(({ newToken }) => sessionService.startSession(newToken)),
       // capturer une erreur de la requête de rafraîchissement
       catchError(() => {
         sessionService.clearSession();
         // retourne un observable demandé par catchError() qui emet un token null : équivalent : return of()
-        return of({ newToken: null }); 
+        return of({ newToken: null });
       }),
       // fusionner les observables et effectuer une requête supplémentaire
       mergeMap(({ newToken }) => {

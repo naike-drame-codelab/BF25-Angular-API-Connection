@@ -7,9 +7,10 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FormErrorComponent } from "../../components/form-error/form-error.component";
 
 @Component({
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormErrorComponent],
   templateUrl: './movie-edit.component.html',
   styleUrl: './movie-edit.component.scss',
 })

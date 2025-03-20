@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     { provide: 'ressource1', useValue: 42 },
     provideHttpClient(withInterceptors([
       // on enregistre tous les interceptors (middleware) ici
-      loaderInterceptor,
+      // loaderInterceptor,
       tokenInterceptor,
     ])),
     provideAnimations(),

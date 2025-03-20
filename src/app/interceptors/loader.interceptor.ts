@@ -15,7 +15,7 @@ export const loaderInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     // ajouter un délai d'affichage du loader de 500ms
-    delay(500),
+    delay(200),
     // exécute une opération à la fin de l'observable
     finalize(() => {
       // faire disparaître le loader

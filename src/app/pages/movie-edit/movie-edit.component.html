@@ -1,26 +1,34 @@
 <form [formGroup]="form" (submit)="submit()">
   <label for="title">Titre</label>
   <input type="text" formControlName="title" />
-  {{ form.controls["title"].errors | json }}
+  <!--  Tant que le champ n'est pas touched, je n'affiche pas l'erreur. Le message apparaît au moment où je quitte le champ. En ajoutant dirty, le message ne s'a'ffiche que quand touched && que l'on a écrit puis effacé l'input  -->
+  <!-- @if(form.controls["title"].invalid && form.controls["title"].touched || form.controls["title"].dirty){ 
+    @if(form.controls['title'].getError('required')){
+      <div>Le titre est obligatoire</div>
+    }
+  }
+  {{ form.controls["title"].errors | json }} -->
+   <app-form-error [control]="form.controls['title']"></app-form-error>
 
   <br />
 
   <label for="duration">Durée</label>
   <input type="number" formControlName="duration" />
-  {{ form.controls["duration"].errors | json }}
+  <app-form-error [control]="form.controls['duration']"></app-form-error>
 
   <br />
 
   <ng-container [formGroup]="form.controls['director']">
     <label for="lastName">Nom</label>
     <input type="text" formControlName="lastName" />
-    {{ form.controls["director"].controls["lastName"].errors | json }}
+    <app-form-error [control]="form.controls['director'].controls['lastName']"></app-form-error>
     
     <br />
 
     <label for="firstName">Prénom</label>
     <input type="text" formControlName="firstName" />
-    {{ form.controls["director"].controls["firstName"].errors | json }}
+    <app-form-error [control]="form.controls['director'].controls['firstName']"></app-form-error>
+
   </ng-container>
 
   <br />
@@ -40,6 +48,7 @@
 
   <button (click)="addActor()">Ajouter un acteur</button>
   <div formArrayName="actors">
+    <!-- track par le control pour suppri -->
     @for(control of form.controls['actors'].controls; track control) {
         <div [formGroupName]="$index">
             <input type="text" formControlName="lastName" />
