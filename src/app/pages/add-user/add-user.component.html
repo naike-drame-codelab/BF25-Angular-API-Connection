@@ -1,0 +1,80 @@
+<form [formGroup]="userForm">
+  <label for="lastName">Nom</label>
+  <input type="text" formControlName="lastName" />
+  <app-form-error [control]="userForm.controls['lastName']"></app-form-error>
+
+  <br />
+
+  <label for="firstName">Prénom</label>
+  <input type="text" formControlName="firstName" />
+  <app-form-error [control]="userForm.controls['firstName']"></app-form-error>
+
+  <br />
+
+  <label for="email">Email</label>
+  <input type="email" formControlName="email" />
+  <app-form-error [control]="userForm.controls['email']"></app-form-error>
+
+  <br />
+
+  <label for="birthdate">Date de naissance</label>
+  <input type="date" formControlName="birthdate" />
+  <app-form-error [control]="userForm.controls['birthdate']"></app-form-error>
+
+  <br />
+
+  <label for="address">Adresse</label>
+  <br />
+  <ng-container [formGroup]="userForm.controls['address']" ]>
+    <label for="street">Rue</label>
+    <input type="text" formControlName="street" />
+    <app-form-error
+      [control]="userForm.controls['address'].controls['street']"
+    ></app-form-error>
+    <label for="number">N°</label>
+    <input type="number" formControlName="number" />
+    <app-form-error
+      [control]="userForm.controls['address'].controls['number']"
+    ></app-form-error>
+    <label for="zipCode">Code postal</label>
+    <input type="text" formControlName="zipCode" />
+    <app-form-error
+      [control]="userForm.controls['address'].controls['zipCode']"
+    ></app-form-error>
+    <label for="city">Ville</label>
+    <input type="text" formControlName="city" />
+    <app-form-error
+      [control]="userForm.controls['address'].controls['city']"
+    ></app-form-error>
+  </ng-container>
+
+  <br />
+
+  <button (click)="addPhone()">Ajouter un téléphone</button>
+  <div formArrayName="phones">
+    @for(control of userForm.controls['phones'].controls; track control) {
+    <div [formGroupName]="$index">
+      <label for="number">Numéro</label>
+      <input type="text" formControlName="number" />
+      <app-form-error
+        [control]="control.get('number')!"
+      ></app-form-error>
+      <label for="type">Type</label>
+      <select formControlName="type">
+        <option value="mobile">Mobile</option>
+        <option value="home">Domicile</option>
+        <option value="work">Travail</option>
+      </select>
+      <app-form-error
+        [control]="control.get('type')!"
+      ></app-form-error>
+      <button (click)="removePhone($index)">✖</button>
+    </div>
+    }
+
+    <br><br><br><br>
+    <h4>Valeurs du formulaire</h4>
+    <br>
+    {{ userForm.value | json }}
+  </div>
+</form>

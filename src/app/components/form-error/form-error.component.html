@@ -24,4 +24,13 @@
     @if(control().getError('max')){
         <p>La valeur est trop grande (max : {{ control().getError('max').max}}).</p>
     }
+    @if(control().getError('email')){
+        <p>Le format de l'email est incorrect.</p>
+    }
+    @if(control().getError('pattern')){
+        <p>Le format est incorrect.</p>
+    }
+    @if(control().getError('invalidDate')){
+        <p>La date d'anniversaire doit être plus petite que la date du jour.</p>
+    }
 }

@@ -19,8 +19,7 @@
   <br />
 
   <ng-container [formGroup]="form.controls['director']">
-    <label for="lastName">Nom</label>
-    <input type="text" formControlName="lastName" />
+    
     <app-form-error [control]="form.controls['director'].controls['lastName']"></app-form-error>
     
     <br />
