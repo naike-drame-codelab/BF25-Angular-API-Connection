@@ -1,0 +1,109 @@
+<form [formGroup]="form">
+  <p-fieldset legend="Informations personnelles">
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="lastName" />
+        <label for="lastName">Nom</label>
+      </p-float-label>
+      <app-form-error [control]="form.get('lastName')!"></app-form-error>
+    </div>
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="firstName" />
+        <label for="firstName">Prénom</label>
+      </p-float-label>
+      <app-form-error [control]="form.controls['firstName']"></app-form-error>
+    </div>
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="email" />
+        <label for="email">Email</label>
+      </p-float-label>
+      <app-form-error [control]="form.controls['email']"></app-form-error>
+    </div>
+    <div class="input-group">
+      <p-float-label>
+        <p-calendar formControlName="birthDate" dateFormat="dd/mm/yy"></p-calendar>
+        <label for="birthDate">Date de naissance</label>
+      </p-float-label>
+      <app-form-error [control]="form.controls['birthDate']"></app-form-error>
+    </div>
+  </p-fieldset>
+
+  <p-fieldset legend="Adresse" [formGroup]="addressForm">
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="street" />
+        <label for="street">Rue</label>
+      </p-float-label>
+      <app-form-error
+        [control]="addressForm.controls['street']"
+      ></app-form-error>
+    </div>
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="number" />
+        <label for="number">Numéro</label>
+      </p-float-label>
+      <app-form-error
+        [control]="addressForm.controls['number']"
+      ></app-form-error>
+    </div>
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="zipCode" />
+        <label for="zipCode">Code postal</label>
+      </p-float-label>
+      <app-form-error
+        [control]="addressForm.controls['zipCode']"
+      ></app-form-error>
+    </div>
+    <div class="input-group">
+      <p-float-label>
+        <input pInputText type="text" formControlName="city" />
+        <label for="street">Ville</label>
+      </p-float-label>
+      <app-form-error [control]="addressForm.controls['city']"></app-form-error>
+    </div>
+  </p-fieldset>
+
+  <p-fieldset legend="Téléphones" formArrayName="phones">
+    <p-button
+      icon="pi pi-plus"
+      size="small"
+      severity="info"
+      (onClick)="addPhone()"
+    ></p-button>
+
+    <app-form-error [control]="phonesFormArray"></app-form-error>
+
+    @for(control of phonesFormArray.controls; track control) {
+    <div class="input-group" [formGroupName]="$index">
+      <div>
+        <p-float-label>
+          <input pInputText formControlName="type" />
+          <label>Type</label>
+        </p-float-label>
+        <app-form-error [control]="control.get('type')!"></app-form-error>
+      </div>
+      <div>
+        <p-float-label>
+          <input pInputText formControlName="number" />
+          <label>Numéro</label>
+        </p-float-label>
+        <app-form-error [control]="control.get('number')!"></app-form-error>
+      </div>
+        <p-button
+            icon="pi pi-trash"
+            size="small"
+            severity="danger"
+            (onClick)="removePhone($index)"
+        ></p-button>
+    </div>
+    }
+  </p-fieldset>
+</form>
+
+<p>Personne : {{ form.value | json }}</p>
+<p>Adresse : {{ addressForm.value | json }}</p>
+<p>Téléphones : {{ phonesFormArray.value | json }}</p>
